@@ -25,11 +25,11 @@ export default function LoginScreen() {
   return (
     <View>
       <StatusBar style="light" />
-      {/* <ImageBackground
-        source={require("../assets/images/login-kids-bg.jpeg")}
+      <ImageBackground
+        source={require("../assets/images/background.webp")}
         style={{ height: Dimensions.get("window").height / 2.5 }}
         className="w-full z-0"
-      ></ImageBackground> */}
+      ></ImageBackground>
 
       <View
         className="bg-black h-full w-full absolute z-[1] opacity-50"
@@ -37,19 +37,19 @@ export default function LoginScreen() {
       ></View>
 
       <SafeAreaView
-        className="z-[2] absolute w-full"
-        style={{ height: Dimensions.get("window").height / 2.5 }}
+        className="z-[2] absolute w-full flex justify-center items-center"
+        style={{ height: Dimensions.get("window").height / 3 }}
       >
-        <View className="top-6 flex flex-col items-center">
-          {/* <Image
-            source={require("../assets/foodbank-light.png")}
-            style={{ width: 80, height: 80 }}
-          /> */}
+        <View className=" flex flex-col justify-center items-center">
+        <Image
+              source={require("../assets/images/logo.png")}
+              style={{ width: 80, height: 40 }}
+            />
           <Text className="text-white text-4xl font-bold mt-2 ">
-            FoodBank E-Shop
+            SeQre
           </Text>
 
-          <Text className="text-white text-base">Please login to continue</Text>
+          <Text className="text-white text-base">Inicia sesión para continuar</Text>
         </View>
       </SafeAreaView>
 
@@ -63,32 +63,32 @@ export default function LoginScreen() {
       >
         <View className="p-9">
           <Text
-            style={{ color: "#D70040", fontSize: 34 }}
+            style={{ color: "#5D3FD3", fontSize: 34 }}
             className="font-bold"
           >
-            Welcome
+            Bienvenid@
           </Text>
           <Text>
-            Don't have an account?{" "}
+            ¿No tienes una cuenta?{" "}
             <Text
               onPress={() => navigation.navigate("Register")}
               className="text-blue-500 italic underline"
             >
-              Register Now
+              Regístrate
             </Text>
           </Text>
           <View style={{ marginTop: 15 }}>
             <TextField
-              label="Email*"
+              label="Email"
               className="font-bold text-gray-500"
               value={email}
               onChangeText={(text) => setEmail(text)}
               errorText={emailError}
               onBlur={() => {
                 if (email.length == 0) {
-                  setEmailError("Email is required");
+                  setEmailError("El email es requerido");
                 } else if (!email.includes("@")) {
-                  setEmailError("Email is not valid");
+                  setEmailError("El email no es válido");
                 } else {
                   setEmailError(null);
                 }
@@ -96,16 +96,16 @@ export default function LoginScreen() {
             />
             <TextField
               className="font-bold mt-5 text-gray-500"
-              label="Password*"
+              label="Contraseña"
               secureTextEntry={true}
               value={pass}
               onChangeText={(text) => setPass(text)}
               errorText={passError}
               onBlur={() => {
                 if (pass.length == 0) {
-                  setPassError("Password is required");
+                  setPassError("La contraseña es requerida");
                 } else if (pass.length < 6) {
-                  setPassError("Password must be at least 6 characters");
+                  setPassError("La contraseña debe tener al menos 6 caracteres");
                 } else {
                   setPassError(null);
                 }
@@ -117,18 +117,18 @@ export default function LoginScreen() {
               className="text-blue-500 italic underline mb-10"
               onPress={() => {
                 if (!email) {
-                  setEmailError("Email is required");
-                  Alert.alert("Reset Password", "Email is required");
+                  setEmailError("El email es requerido");
+                  Alert.alert("Restablecer contraseña", "El email es requerido");
                 } else if (!email.includes("@")) {
-                  setEmailError("Email is not valid");
-                  Alert.alert("Reset Password", "Email is not valid");
+                  setEmailError("El email no es válido");
+                  Alert.alert("Restablecer contraseña", "El email no es válido");
                 } else if (emailError == null && email.length > 0) {
-                  Alert.alert("Reset Password", `Email sent to ${email}`);
+                  Alert.alert("Restablecer contraseña", "Se ha enviado un correo a " + email + " para restablecer tu contraseña");
                   sendPasswordResetEmail(auth, email);
                 }
               }}
             >
-              Forgot Password?
+              ¿Olvidaste tu contraseña?
             </Text>
           </View>
 
@@ -143,12 +143,12 @@ export default function LoginScreen() {
               onPress={() => {
                 if (!email || !pass) {
                   if (!email && !pass) {
-                    setEmailError("Email is required");
-                    setPassError("Password is required");
+                    setEmailError("El email es requerido");
+                    setPassError("La contraseña es requerida");
                   } else if (!email) {
-                    setEmailError("Email is required");
+                    setEmailError("El email es requerido");
                   } else if (!pass) {
-                    setPassError("Password is required");
+                    setPassError("La contraseña es requerida");
                   }
                 } else if (
                   emailError == null &&
@@ -160,18 +160,29 @@ export default function LoginScreen() {
                 }
               }}
               style={{ width: "100%" }}
-              color="#4632A1"
-              //   onpress change bg color
-              className="flex justify-center items-center rounded-full w-3/4 mx-0 mt-10 bg-[#D70040]"
+              className="flex justify-center items-center rounded-full w-3/4 mx-0 mt-10 bg-[#5D3FD3]"
             >
               <Text className="text-white self-center font-bold p-3 text-lg">
-                Login
+                Iniciar sesión
               </Text>
             </TouchableOpacity>
             <View className="justify-center mt-7">
-              <Text className="text-gray-500 mb-4">Or Login with</Text>
+              <Text className="text-gray-500 mb-4">O inicia sesión con</Text>
               <View className="flex-row justify-center">
-                <GoogleAuth />
+                {/* <GoogleAuth /> */}
+                <Icon
+                  name="google"
+                  type="font-awesome"
+                  color="#db3236"
+                  size={45}
+                  style={{
+                    borderRadius: "50%",
+                    padding: 8,
+                    paddingHorizontal: 12,
+                    borderWidth: 1,
+                    borderColor: "#db3236",
+                  }}
+                />
               </View>
             </View>
           </View>
