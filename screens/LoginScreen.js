@@ -13,6 +13,12 @@ import TextField from "../components/TextField";
 import { StatusBar } from "expo-status-bar";
 import { useNavigation } from "@react-navigation/native";
 import Toast from "react-native-toast-message";
+import {
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+} from "firebase/auth";
+import { auth } from "../firebaseConfig";
+import PermanentLogin from "../utils/PermanentLogin";
 
 export default function LoginScreen() {
   const navigation = useNavigation();
@@ -22,8 +28,37 @@ export default function LoginScreen() {
   const [pass, setPass] = useState("");
   const [passError, setPassError] = useState(null);
 
+  const handleSignIn = () => {
+    try {
+      signInWithEmailAndPassword(auth, email, pass);
+      navigation.navigate("Home");
+    } catch (error) {
+      if (error.code == "auth/user-not-found") {
+        Toast.show({
+          type: "error",
+          text1: "Error",
+          text2: "Usuario no encontrado",
+        });
+      } else if (error.code == "auth/wrong-password") {
+        Toast.show({
+          type: "error",
+          text1: "Error",
+          text2: "Contraseña incorrecta",
+        });
+      } else {
+        console.log(error);
+        Toast.show({
+          type: "error",
+          text1: "Error",
+          text2: "Ocurrió un error",
+        });
+      }
+    }
+  };
+
   return (
     <View>
+      <PermanentLogin />
       <StatusBar style="light" />
       <ImageBackground
         source={require("../assets/images/background.webp")}
@@ -41,15 +76,15 @@ export default function LoginScreen() {
         style={{ height: Dimensions.get("window").height / 3 }}
       >
         <View className=" flex flex-col justify-center items-center">
-        <Image
-              source={require("../assets/images/logo.png")}
-              style={{ width: 80, height: 40 }}
-            />
-          <Text className="text-white text-4xl font-bold mt-2 ">
-            SeQre
-          </Text>
+          <Image
+            source={require("../assets/images/logo.png")}
+            style={{ width: 80, height: 40 }}
+          />
+          <Text className="text-white text-4xl font-bold mt-2 ">SeQre</Text>
 
-          <Text className="text-white text-base">Inicia sesión para continuar</Text>
+          <Text className="text-white text-base">
+            Inicia sesión para continuar
+          </Text>
         </View>
       </SafeAreaView>
 
@@ -105,7 +140,9 @@ export default function LoginScreen() {
                 if (pass.length == 0) {
                   setPassError("La contraseña es requerida");
                 } else if (pass.length < 6) {
-                  setPassError("La contraseña debe tener al menos 6 caracteres");
+                  setPassError(
+                    "La contraseña debe tener al menos 6 caracteres"
+                  );
                 } else {
                   setPassError(null);
                 }
@@ -118,12 +155,23 @@ export default function LoginScreen() {
               onPress={() => {
                 if (!email) {
                   setEmailError("El email es requerido");
-                  Alert.alert("Restablecer contraseña", "El email es requerido");
+                  Alert.alert(
+                    "Restablecer contraseña",
+                    "El email es requerido"
+                  );
                 } else if (!email.includes("@")) {
                   setEmailError("El email no es válido");
-                  Alert.alert("Restablecer contraseña", "El email no es válido");
+                  Alert.alert(
+                    "Restablecer contraseña",
+                    "El email no es válido"
+                  );
                 } else if (emailError == null && email.length > 0) {
-                  Alert.alert("Restablecer contraseña", "Se ha enviado un correo a " + email + " para restablecer tu contraseña");
+                  Alert.alert(
+                    "Restablecer contraseña",
+                    "Se ha enviado un correo a " +
+                      email +
+                      " para restablecer tu contraseña"
+                  );
                   sendPasswordResetEmail(auth, email);
                 }
               }}

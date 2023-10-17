@@ -1,0 +1,97 @@
+export const data = {
+  categories: [
+    {
+      categoryTitle: "Emergencias",
+      ciudad: "Zona Metropolitana de Guadalajara",
+      zona: "ZMG_Zona",
+      items: [
+        {
+          tipo: "Ambulancia",
+          direccion: "123 Main St",
+          lat: 37.78825,
+          lng: -122.4324,
+          detalles: "Detalles de la emergencia",
+          fecha: "2023-10-17T00:17:11.622Z",
+        },
+        {
+          tipo: "Bomberos",
+          direccion: "123 Main St",
+          lat: 37.78825,
+          lng: -122.4324,
+          detalles: "Detalles de la emergencia",
+          fecha: "2021-08-10T16:00:00.000Z",
+        },
+        {
+          tipo: "Policia",
+          direccion: "123 Main St",
+          lat: 37.78825,
+          lng: -122.4324,
+          detalles: "Detalles de la emergencia",
+          fecha: "2021-08-10T16:00:00.000Z",
+        },
+      ],
+    },
+    {
+      categoryTitle: "Vialidad",
+      ciudad: "Zona Metropolitana de Guadalajara",
+      zona: "ZMG_Zona",
+      items: [
+        {
+          tipo: "Accidente",
+          direccion: "123 Main St",
+          lat: 37.78825,
+          lng: -122.4324,
+          detalles: "Detalles de la emergencia",
+          fecha: "2021-08-10T16:00:00.000Z",
+        },
+        {
+          tipo: "Obra",
+          direccion: "123 Main St",
+          lat: 37.78825,
+          lng: -122.4324,
+          detalles: "Detalles de la emergencia",
+          fecha: "2021-08-10T16:00:00.000Z",
+        },
+        {
+          tipo: "Tráfico",
+          direccion: "123 Main St",
+          lat: 37.78825,
+          lng: -122.4324,
+          detalles: "Detalles de la emergencia",
+          fecha: "2021-08-10T16:00:00.000Z",
+        },
+      ],
+    },
+    {
+      categoryTitle: "Alertas",
+      ciudad: "Zona Metropolitana de Guadalajara",
+      zona: "ZMG_Zona",
+      items: [
+        {
+          tipo: "Robo",
+          direccion: "123 Main St",
+          lat: 37.78825,
+          lng: -122.4324,
+          detalles: "Detalles de la emergencia",
+          fecha: "2021-08-10T16:00:00.000Z",
+        },
+        {
+          tipo: "Asalto",
+          direccion: "123 Main St",
+          lat: 37.78825,
+          lng: -122.4324,
+          detalles: "Detalles de la emergencia",
+          fecha: "2021-08-10T16:00:00.000Z",
+        },
+        {
+          tipo: "Violencia",
+          direccion: "123 Main St",
+          lat: 37.78825,
+          lng: -122.4324,
+          detalles: "Detalles de la emergencia",
+          fecha: "2021-08-10T16:00:00.000Z",
+        },
+      ],
+    },
+  ],
+};
