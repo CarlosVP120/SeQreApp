@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setLocation } from "./slices/userLocationSlice";
 import ItemScreen from "./screens/ItemScreen";
 import CategoryScreen from "./screens/CategoryScreen";
+import SettingsScreen from "./screens/SettingsScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -54,6 +55,15 @@ export default function Navigation({ currentLocation }) {
           children={() => <CategoryScreen />}
           options={{ presentation: "fullScreenModal" }}
         />
+        <Stack.Group
+          screenOptions={{
+            presentation: "modal",
+            contentStyle: { backgroundColor: "transparent" },
+            gestureDirection: "vertical",
+          }}
+        >
+          <Stack.Screen name="SettingsScreen" component={SettingsScreen} />
+        </Stack.Group>
       </Stack.Navigator>
     </NavigationContainer>
   );

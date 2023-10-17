@@ -16,7 +16,7 @@ export default function Header() {
     <SafeAreaView className="flex-row flex-[0.5] items-center justify-between mb-3 mx-4 bg-transparent">
       <TouchableOpacity
         className={`p-2 rounded-full shadow-md bg-gray-100 flex justify-center items-center`}
-        onPress={() => navigation.navigate("Profile")}
+        onPress={() => navigation.navigate("SettingsScreen")}
       >
         <Icon.User height={25} width={25} stroke="black" />
       </TouchableOpacity>
