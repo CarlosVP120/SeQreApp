@@ -10,6 +10,7 @@ import { setLocation } from "./slices/userLocationSlice";
 import ItemScreen from "./screens/ItemScreen";
 import CategoryScreen from "./screens/CategoryScreen";
 import SettingsScreen from "./screens/SettingsScreen";
+import NewItemScreen from "./screens/NewItemScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -63,6 +64,7 @@ export default function Navigation({ currentLocation }) {
           }}
         >
           <Stack.Screen name="SettingsScreen" component={SettingsScreen} />
+          <Stack.Screen name="NewItemScreen" component={NewItemScreen} />
         </Stack.Group>
       </Stack.Navigator>
     </NavigationContainer>

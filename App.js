@@ -44,7 +44,8 @@ export default function App() {
 
       let location = await Location.getCurrentPositionAsync({});
       let address = await Location.reverseGeocodeAsync(location.coords);
-      console.log("Location fetched: ", address[0].name);
+      console.log("Location fetched: ", address[0].name, ", ", address[0].city);
+
       setCurrentLocation({
         latitude: location.coords.latitude,
         longitude: location.coords.longitude,

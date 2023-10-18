@@ -2,8 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   dataBase: null,
-  dataBaseCopy: null,
-  categories: [],
 };
 
 export const dbSlice = createSlice({

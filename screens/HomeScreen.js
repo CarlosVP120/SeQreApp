@@ -13,9 +13,15 @@ import * as Icon from "react-native-feather";
 import CategoryCard from "../components/CategoryCard";
 import ItemCard from "../components/ItemCard";
 import { Image } from "expo-image";
+import { useNavigation } from "@react-navigation/native";
+import { useSelector } from "react-redux";
+import { selectLocation } from "../slices/userLocationSlice";
+import GetFirestore from "../utils/GetFirestoreInRealTime";
 
 export default function HomeScreen() {
   const [recentView, setRecentView] = useState(false);
+  const navigation = useNavigation();
+  let location = useSelector(selectLocation);
 
   //   Merge all of the "items" from each category into a single array, but to each item, add its category name
   const items = data.categories.reduce((acc, categoria) => {
@@ -86,11 +92,16 @@ export default function HomeScreen() {
       </ScrollView>
       {/* Plus Icon */}
       <TouchableOpacity
-        className="flex-row w-14 h-14 justify-center items-center rounded-full p-5 absolute bottom-5 right-5 z-20 bg-blue-500"
-        onPress={() => navigation.navigate("AddItemScreen")}
+        className="flex-row w-16 h-16 justify-center items-center rounded-full p-5 absolute bottom-5 right-5 z-20 bg-blue-500"
+        onPress={() => {
+          if (location) {
+            navigation.navigate("NewItemScreen");
+          }
+        }}
       >
-        <Icon.Plus className="" height={30} width={30} stroke="white" />
+        <Icon.Plus className="" height={35} width={35} stroke="white" />
       </TouchableOpacity>
+      <GetFirestore />
     </View>
   );
 }
