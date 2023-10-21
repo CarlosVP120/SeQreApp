@@ -27,6 +27,7 @@ export default function HomeScreen() {
   const [data, setData] = useState([]);
   const [items, setItems] = useState([]);
 
+  // Set the data from the db
   useEffect(() => {
     if (db)   {
       // Add the category to each of the items of each of the categories in the data array
@@ -38,7 +39,15 @@ export default function HomeScreen() {
         })),
       })).sort((a, b) => b.items.length - a.items.length));
 
-       // Merge all of the "items" from each category into a single array
+      
+    } 
+  }
+  , [db]);
+
+  // Set the items from the data
+  useEffect(() => {
+    if (data) {
+      // Merge all of the "items" from each category into a single array
       //  After that, sort the array by date, show the most recent first, the date is in ISO format
       setItems(
         data.reduce((acc, categoria) => {
@@ -51,9 +60,9 @@ export default function HomeScreen() {
         }, [])
         .sort((a, b) => new Date(b.fecha) - new Date(a.fecha))
       );
-    } 
+    }
   }
-  , [db]);
+  , [data]);
 
   return (
     <View className="flex-1 h-screen">
