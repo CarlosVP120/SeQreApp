@@ -6,7 +6,7 @@ import {
   Dimensions,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import { data } from "../constants";
 import * as Icon from "react-native-feather";
@@ -14,28 +14,46 @@ import CategoryCard from "../components/CategoryCard";
 import ItemCard from "../components/ItemCard";
 import { Image } from "expo-image";
 import { useNavigation } from "@react-navigation/native";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectLocation } from "../slices/userLocationSlice";
 import GetFirestore from "../utils/GetFirestoreInRealTime";
+import { setDB, selectDB } from "../slices/dbSlice";
 
 export default function HomeScreen() {
   const [recentView, setRecentView] = useState(false);
   const navigation = useNavigation();
   let location = useSelector(selectLocation);
+  let db = useSelector(selectDB);
+  const [data, setData] = useState([]);
+  const [items, setItems] = useState([]);
 
-  //   Merge all of the "items" from each category into a single array, but to each item, add its category name
-  const items = data.categories.reduce((acc, categoria) => {
-    return [
-      ...acc,
-      ...categoria.items.map((item) => ({
-        ...item,
-        categoria: categoria.categoryTitle,
-      })),
-    ];
-  }, []);
+  useEffect(() => {
+    if (db)   {
+      // Add the category to each of the items of each of the categories in the data array
+      setData(Object.values(db).map((categoria) => ({
+        ...categoria,
+        items: categoria.items.map((item) => ({
+          ...item,
+          categoria: categoria.categoryTitle,
+        })),
+      })).sort((a, b) => b.items.length - a.items.length));
 
-  // Get the width of the screen
-  const width = Dimensions.get("window").width;
+       // Merge all of the "items" from each category into a single array
+      //  After that, sort the array by date, show the most recent first, the date is in ISO format
+      setItems(
+        data.reduce((acc, categoria) => {
+          return acc.concat(
+            categoria.items.map((item) => ({
+              ...item
+            }
+            ))
+          );
+        }, [])
+        .sort((a, b) => new Date(b.fecha) - new Date(a.fecha))
+      );
+    } 
+  }
+  , [db]);
 
   return (
     <View className="flex-1 h-screen">
@@ -84,7 +102,8 @@ export default function HomeScreen() {
               </View>
             </View>
 
-            {data.categories.map((item, index) => (
+            {db &&
+            data.map((item, index) => (
               <CategoryCard item={item} key={index} />
             ))}
           </>

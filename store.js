@@ -7,4 +7,7 @@ export default configureStore({
     userLocation: userLocation,
     dataBase: dataBase,
   },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+    serializableCheck: false
+}),
 });

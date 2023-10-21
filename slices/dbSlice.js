@@ -10,35 +10,15 @@ export const dbSlice = createSlice({
   reducers: {
     setDB: (state, action) => {
       state.dataBase = action.payload;
-      state.dataBaseCopy = action.payload;
-      state.categories = action.payload.reduce((acc, curr) => {
-        acc.push({
-          title: curr.title,
-          id: curr.id,
-          image: curr.image,
-        });
-        return acc.reverse();
-      }, []);
-    },
-    filterDBbyCategory: (state, action) => {
-      state.dataBase = null;
-      state.dataBase = state.dataBaseCopy;
-      state.dataBase = state.dataBase.filter((item) => {
-        return item.title == action.payload;
-      });
-    },
-    unfilterDBbyCategory: (state) => {
-      state.dataBase = null;
-      state.dataBase = state.dataBaseCopy;
-    },
+    }
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setDB, filterDBbyCategory, unfilterDBbyCategory } =
+export const { setDB } =
   dbSlice.actions;
 export const selectDB = (state) => state.dataBase.dataBase;
 
-export const selectCategories = (state) => state.dataBase.categories;
+export const selectDBState = (state) => state.dataBase;
 
 export default dbSlice.reducer;

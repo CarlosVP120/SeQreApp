@@ -23,14 +23,19 @@ export default PublishToFirestore = async (
   let city = currentLocation.address.city;
   let subregion = currentLocation.address.subregion;
 
+  let currentTime = new Date();
+  let currentTimeISO = currentTime.toISOString();
+
   const item = {
     tipo: suceso,
     direccion: currentLocation.address.name,
     lat: currentLocation.latitude,
     lng: currentLocation.longitude,
     detalles: descripcion,
-    fecha: new Date(),
+    fecha: currentTimeISO + "",
   };
+
+  console.log(item)
 
   const citiesRef = collection(db, city);
   const snapshot = await getDocs(citiesRef);
@@ -74,35 +79,3 @@ export default PublishToFirestore = async (
     });
   }
 };
-
-// {
-//       categoryTitle: "Alertas",
-//       ciudad: "Zona Metropolitana de Guadalajara",
-//       zona: "ZMG_Zona",
-//       items: [
-//         {
-//           tipo: "Robo",
-//           direccion: "123 Main St",
-//           lat: 37.78825,
-//           lng: -122.4324,
-//           detalles: "Detalles de la emergencia",
-//           fecha: "2021-08-10T16:00:00.000Z",
-//         },
-//         {
-//           tipo: "Asalto",
-//           direccion: "123 Main St",
-//           lat: 37.78825,
-//           lng: -122.4324,
-//           detalles: "Detalles de la emergencia",
-//           fecha: "2021-08-10T16:00:00.000Z",
-//         },
-//         {
-//           tipo: "Violencia",
-//           direccion: "123 Main St",
-//           lat: 37.78825,
-//           lng: -122.4324,
-//           detalles: "Detalles de la emergencia",
-//           fecha: "2021-08-10T16:00:00.000Z",
-//         },
-//       ],
-//     },

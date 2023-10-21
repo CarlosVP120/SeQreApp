@@ -8,16 +8,24 @@ import { auth } from "./firebaseConfig";
 import store from "./store";
 import { Provider, useSelector, useDispatch } from "react-redux";
 import userLocationSlice from "./slices/userLocationSlice";
+import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 
 export default function App() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [currentLocation, setCurrentLocation] = useState(null);
 
+  // Get the location each 2 minutes
   useEffect(() => {
     getLocation();
     setTimeout(() => {
       setIsLoaded(true);
     }, 2700);
+
+    const interval = setInterval(() => {
+      console.log("Location refreshed")
+      getLocation();
+    }, 120000);
+    return () => clearInterval(interval);
   }, []);
 
   const getLocation = async () => {

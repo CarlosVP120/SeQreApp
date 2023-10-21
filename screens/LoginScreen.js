@@ -31,7 +31,9 @@ export default function LoginScreen() {
   const handleSignIn = () => {
     try {
       signInWithEmailAndPassword(auth, email, pass);
-      navigation.navigate("Home");
+      if (auth.currentUser) {
+        navigation.navigate("Home");
+      }
     } catch (error) {
       if (error.code == "auth/user-not-found") {
         Toast.show({

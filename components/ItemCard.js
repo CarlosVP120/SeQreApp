@@ -16,7 +16,6 @@ export default function ItemCard({ item }) {
   const opacity = useSharedValue(0);
   const [icon, setIcon] = useState("alert-circle");
 
-  // console.log(item);
 
   useEffect(() => {
     if (item.categoria === "Alertas") {

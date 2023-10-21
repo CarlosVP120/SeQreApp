@@ -4,12 +4,14 @@ import { onAuthStateChanged } from "firebase/auth";
 import db, { auth } from "../firebaseConfig";
 import { View } from "react-native";
 import { onSnapshot, doc } from "firebase/firestore";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectLocation } from "../slices/userLocationSlice";
+import { setDB, selectDB } from "../slices/dbSlice";
 
 export default function GetFirestore() {
   const navigation = useNavigation();
   let location = useSelector(selectLocation);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (location) {
@@ -19,11 +21,11 @@ export default function GetFirestore() {
         (doc) => {
           if (doc.exists()) {
             console.log(
-              "Found document data for " + location.address.subregion + ": ",
-              doc.data()
+              "Found document data for " + location.address.subregion
             );
+            let data = doc.data();
+            dispatch(setDB(data));
           } else {
-            // doc.data() will be undefined in this case
             console.log("No such document!");
           }
         }
