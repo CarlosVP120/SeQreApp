@@ -71,7 +71,7 @@ export default function CategoryCard({ item }) {
                   />
                 </View>
               </View>
-              <Text className="text-sm text-[#59C1CC] font-bold py-2">
+              <Text className="text-sm text-[#59C1CC] font-medium py-2">
               {item.zona} - {item.postalCode}
               </Text>
 
