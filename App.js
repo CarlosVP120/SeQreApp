@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Text, View } from "react-native";
 import Navigation from "./navigation";
 import Toast from "react-native-toast-message";
@@ -12,6 +12,7 @@ import AnimatedSplash from "react-native-animated-splash-screen";
 export default function App() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [currentLocation, setCurrentLocation] = useState(null);
+
 
   // Get the location each 2 minutes
   useEffect(() => {

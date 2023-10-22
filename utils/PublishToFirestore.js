@@ -74,7 +74,7 @@ export default PublishToFirestore = async (
   } else {
     console.log("Collection already exists, updating city: " + city);
     // Add the item to the items array in the subregion document using the arrayUnion method
-    updateDoc(doc(db, city, postalCode), {
+    updateDoc(doc(db, city, `${postalCode}-${dateFormatted}`), {
       [type]: {
         items: arrayUnion(item),
         categoryTitle: type,
