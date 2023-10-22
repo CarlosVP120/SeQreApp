@@ -8,7 +8,6 @@ import { auth } from "./firebaseConfig";
 import store from "./store";
 import { Provider, useSelector, useDispatch } from "react-redux";
 import userLocationSlice from "./slices/userLocationSlice";
-import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 
 export default function App() {
   const [isLoaded, setIsLoaded] = useState(false);

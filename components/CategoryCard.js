@@ -15,7 +15,7 @@ export default function CategoryCard({ item }) {
   // Fade in animation
   const opacity = useSharedValue(0);
   const navigation = useNavigation();
-
+  
   useEffect(() => {
     if (item.categoryTitle === "Alertas") {
       setIcon("broadcast");
@@ -71,8 +71,8 @@ export default function CategoryCard({ item }) {
                   />
                 </View>
               </View>
-              <Text className="text-sm text-[#59C1CC] font-semibold py-2">
-                Zona: {item.zona}
+              <Text className="text-sm text-[#59C1CC] font-bold py-2">
+              {item.zona} - {item.postalCode}
               </Text>
 
               <View className="flex-row items-start justify-end pb-1 gap-x-2"></View>

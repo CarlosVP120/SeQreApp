@@ -33,13 +33,13 @@ export default function HomeScreen() {
       // Add the category to each of the items of each of the categories in the data array
       setData(Object.values(db).map((categoria) => ({
         ...categoria,
+        postalCode: location?.address.postalCode,
         items: categoria.items.map((item) => ({
           ...item,
           categoria: categoria.categoryTitle,
         })),
       })).sort((a, b) => b.items.length - a.items.length));
 
-      
     } 
   }
   , [db]);
@@ -89,34 +89,62 @@ export default function HomeScreen() {
         className="flex-[10]"
         contentContainerStyle={{ flexGrow: 1, paddingBottom: 50 }}
       >
-        {recentView ? (
-          items.map((item, index) => <ItemCard item={item} key={index} />)
-        ) : (
-          <>
-            {/* Promotional slider */}
-            <View className="flex-1 flex-col justify-center items-center mx-3 mt-3">
-              <Image
-                source={{
-                  uri: "https://as1.ftcdn.net/v2/jpg/02/21/70/40/1000_F_221704033_600ld1AP1KcDiXMw7FFAnmDkslBVCTn8.jpg",
-                }}
-                className="w-full h-40 rounded-xl"
-              />
-              <View className="flex-col justify-center items-center bg-gray-200 border border-blue-500/30 mt-3 rounded-2xl">
-                <Text className="text-blue-500 text-xl font-semibold px-5 pt-1">
-                  ¡Por una ciudad más segura!
-                </Text>
-                <Text className="text-gray-600 text-lg px-5 py-2 text-center">
-                  Comparte con tu comunidad lo que está pasando cerca de ti.
-                </Text>
-              </View>
+        {
+          db ? (
+            recentView ? (
+              items.map((item, index) => <ItemCard item={item} key={index} />)
+            ) : (
+              <>
+                {/* Promotional slider */}
+                <View className="flex-1 flex-col justify-center items-center mx-3 mt-3">
+                  <Image
+                    source={{
+                      uri: "https://as1.ftcdn.net/v2/jpg/02/21/70/40/1000_F_221704033_600ld1AP1KcDiXMw7FFAnmDkslBVCTn8.jpg",
+                    }}
+                    className="w-full h-40 rounded-xl"
+                  />
+                  <View className="flex-col justify-center items-center bg-gray-200 border border-blue-500/30 mt-3 rounded-2xl">
+                    <Text className="text-blue-500 text-xl font-semibold px-5 pt-1">
+                      ¡Por una ciudad más segura!
+                    </Text>
+                    <Text className="text-gray-600 text-lg px-5 py-2 text-center">
+                      Comparte con tu comunidad lo que está pasando cerca de ti.
+                    </Text>
+                  </View>
+                </View>
+    
+                {
+                data.map((item, index) => (
+                  <CategoryCard item={item} key={index} />
+                ))
+                }
+              </>
+            )
+          )
+         : (
+          <View className="flex-1 flex-col justify-start items-center mx-3 mt-3">
+            <Image
+              source={{
+                uri: "https://as1.ftcdn.net/v2/jpg/02/21/70/40/1000_F_221704033_600ld1AP1KcDiXMw7FFAnmDkslBVCTn8.jpg",
+              }}
+              className="w-full h-40 rounded-xl"
+            />
+            <View className="flex-col justify-center items-center bg-gray-200 border border-blue-500/30 mt-3 rounded-2xl">
+              <Text className="text-blue-500 text-xl font-semibold px-5 pt-1">
+                ¡Por una ciudad más segura!
+              </Text>
+              <Text className="text-gray-600 text-lg px-5 py-2 text-center">
+                Comparte con tu comunidad lo que está pasando cerca de ti.
+              </Text>
             </View>
 
-            {db &&
-            data.map((item, index) => (
-              <CategoryCard item={item} key={index} />
-            ))}
-          </>
-        )}
+            <Text className="text-blue-400 text-xl font-semibold px-5 mt-20 text-center">
+              Aun no hay registros en tu zona, ¡Se el primero en reportar!
+            </Text>
+          </View>
+        )
+        }
+      
       </ScrollView>
       {/* Plus Icon */}
       <TouchableOpacity

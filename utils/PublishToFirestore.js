@@ -21,7 +21,8 @@ export default PublishToFirestore = async (
   // Check if the collection "cities" exists
 
   let city = currentLocation.address.city;
-  let subregion = currentLocation.address.subregion;
+  let postalCode = currentLocation.address.postalCode;
+  let zone = currentLocation.address.district;
 
   let currentTime = new Date();
   let currentTimeISO = currentTime.toISOString();
@@ -42,25 +43,25 @@ export default PublishToFirestore = async (
 
   if (snapshot.empty) {
     console.log("No matching documents, creating collection for city: " + city);
-    await setDoc(doc(db, city, subregion), {
+    await setDoc(doc(db, city, postalCode), {
       Alertas: {
         categoryTitle: "Alertas",
         ciudad: city,
-        zona: subregion,
+        zona: zone,
         items: type === "Alertas" ? [item] : [],
       },
 
       Emergencias: {
         categoryTitle: "Emergencias",
         ciudad: city,
-        zona: subregion,
+        zona: zone,
         items: type === "Emergencias" ? [item] : [],
       },
 
       Vialidad: {
         categoryTitle: "Vialidad",
         ciudad: city,
-        zona: subregion,
+        zona: zone,
         items: type === "Vialidad" ? [item] : [],
       },
     });
@@ -69,12 +70,12 @@ export default PublishToFirestore = async (
   } else {
     console.log("Collection already exists, updating city: " + city);
     // Add the item to the items array in the subregion document using the arrayUnion method
-    updateDoc(doc(db, city, subregion), {
+    updateDoc(doc(db, city, postalCode), {
       [type]: {
         items: arrayUnion(item),
         categoryTitle: type,
         ciudad: city,
-        zona: subregion,
+        zona: zone,
       },
     });
   }

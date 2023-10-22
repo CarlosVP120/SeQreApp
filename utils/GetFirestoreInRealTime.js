@@ -17,11 +17,11 @@ export default function GetFirestore() {
     if (location) {
       // Get the collection city document subregion and set it to redux
       onSnapshot(
-        doc(db, location.address.city, location.address.subregion),
+        doc(db, location.address.city, location.address.postalCode),
         (doc) => {
           if (doc.exists()) {
             console.log(
-              "Found document data for " + location.address.subregion
+              "Found document data for " + location.address.postalCode
             );
             let data = doc.data();
             dispatch(setDB(data));
