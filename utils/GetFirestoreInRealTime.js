@@ -12,12 +12,17 @@ export default function GetFirestore() {
   const navigation = useNavigation();
   let location = useSelector(selectLocation);
   const dispatch = useDispatch();
+  let date = new Date();
+  let day = date.getDate();
+  let month = date.getMonth() + 1;
+  let year = date.getFullYear();
+  let dateFormatted = day + "" + month + "" + year;
 
   useEffect(() => {
     if (location) {
       // Get the collection city document subregion and set it to redux
       onSnapshot(
-        doc(db, location.address.city, location.address.postalCode),
+        doc(db, location.address.city, `${location.address.postalCode}-${dateFormatted}`),
         (doc) => {
           if (doc.exists()) {
             console.log(

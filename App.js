@@ -7,7 +7,7 @@ import * as Location from "expo-location";
 import { auth } from "./firebaseConfig";
 import store from "./store";
 import { Provider, useSelector, useDispatch } from "react-redux";
-import userLocationSlice from "./slices/userLocationSlice";
+import AnimatedSplash from "react-native-animated-splash-screen";
 
 export default function App() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -18,7 +18,7 @@ export default function App() {
     getLocation();
     setTimeout(() => {
       setIsLoaded(true);
-    }, 2700);
+    }, 2000);
 
     const interval = setInterval(() => {
       console.log("Location refreshed")
@@ -65,10 +65,19 @@ export default function App() {
 
   return (
     <>
+    <AnimatedSplash
+        translucent={true}
+        isLoaded={isLoaded}
+        logoImage={require("./assets/logo.png")}
+        backgroundColor={"#262626"}
+        logoHeight={150}
+        logoWidth={150}
+      >
       <Provider store={store}>
         <Navigation currentLocation={currentLocation} />
         <Toast />
       </Provider>
+      </AnimatedSplash>
     </>
   );
 }

@@ -22,6 +22,12 @@ export default PublishToFirestore = async (
 
   let city = currentLocation.address.city;
   let postalCode = currentLocation.address.postalCode;
+  // Get the day in format daymonthyear, ex: 21092021
+  let date = new Date();
+  let day = date.getDate();
+  let month = date.getMonth() + 1;
+  let year = date.getFullYear();
+  let dateFormatted = day + "" + month + "" + year;
   let zone = currentLocation.address.district;
 
   let currentTime = new Date();
@@ -36,14 +42,12 @@ export default PublishToFirestore = async (
     fecha: currentTimeISO + "",
   };
 
-  console.log(item)
-
   const citiesRef = collection(db, city);
   const snapshot = await getDocs(citiesRef);
 
   if (snapshot.empty) {
     console.log("No matching documents, creating collection for city: " + city);
-    await setDoc(doc(db, city, postalCode), {
+    await setDoc(doc(db, city, `${postalCode}-${dateFormatted}`), {
       Alertas: {
         categoryTitle: "Alertas",
         ciudad: city,

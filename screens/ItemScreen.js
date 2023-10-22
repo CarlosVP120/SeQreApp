@@ -109,7 +109,7 @@ export default function ItemScreen() {
           latitudeDelta: 0.0025,
           longitudeDelta: 0.0025,
         }}
-        style={{ flexGrow: 1, width: "100%", height: 340 }}
+        style={{ flexGrow: 1, width: "100%", height: 315 }}
         showsUserLocation={true}
         ref={mapRef}
       >
