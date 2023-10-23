@@ -11,6 +11,7 @@ import {
   updateDoc,
   arrayUnion,
 } from "firebase/firestore";
+import { Alert } from "react-native";
 
 export default PublishToFirestore = async (
   type,
@@ -47,6 +48,16 @@ export default PublishToFirestore = async (
 
   if (snapshot.empty) {
     console.log("No matching documents, creating collection for city: " + city);
+    Alert.alert(
+      "¡Gracias!",
+      `Creando reporte en ${postalCode}-${dateFormatted}`,
+      [
+        {
+          text: "OK",
+          onPress: () => console.log("OK Pressed"),
+        },
+      ]
+    );
     await setDoc(doc(db, city, `${postalCode}-${dateFormatted}`), {
       Alertas: {
         categoryTitle: "Alertas",
@@ -73,6 +84,16 @@ export default PublishToFirestore = async (
     return;
   } else {
     console.log("Collection already exists, updating city: " + city);
+    Alert.alert(
+      "¡Gracias!",
+      `Creando reporte en ${postalCode}-${dateFormatted}`,
+      [
+        {
+          text: "OK",
+          onPress: () => console.log("OK Pressed"),
+        },
+      ]
+    );
     // Add the item to the items array in the subregion document using the arrayUnion method
     updateDoc(doc(db, city, `${postalCode}-${dateFormatted}`), {
       [type]: {
